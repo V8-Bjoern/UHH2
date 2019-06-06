@@ -78,7 +78,7 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
     elif year == "2017v1":
         process = cms.Process("USER", eras.Run2_2017)
     elif year == "2016v3":
-        process = cms.Process("USER", eras.Run2_2016, eras.run2_miniAOD_80XLegacy) 
+        process = cms.Process("USER", eras.Run2_2016, eras.run2_miniAOD_80XLegacy)
     elif year == "2016v2":
         process = cms.Process("USER", eras.Run2_2016)
     else:
@@ -308,7 +308,8 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
                                        select=cms.vstring(
                                            'drop *',
                                            'keep status == 3',
-                                           'keep 20 <= status <= 30',
+                                           'keep 20 <= status <= 40',
+                                           #'keep 20 <= status <= 30', default values 
                                            'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) >= 23 && abs(mother().pdgId()) <= 25',
                                            'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) == 6',
                                            'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) == 42',
@@ -2290,7 +2291,7 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
                                         #     # qjets_source = cms.string("QJetsCa8CHS")
                                         #     # ecf_beta1_source=cms.string(""),
                                         #     # ecf_beta2_source=cms.string("")
-                                        # ),
+                                        # ),year
                                         # cms.PSet(
                                         #     # The fat jets that HepTopTag produces are the Top jet candidates,
                                         #     # i.e. the sum of its subjets. Therefore they will NOT have
@@ -2329,7 +2330,7 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
                                         # ) ,
                                     ),
 
-                                    doTrigger=cms.bool(True),
+                                    doTrigger=cms.bool(False), #No Trigger in FastSim
                                     trigger_bits=cms.InputTag("TriggerResults", "", "HLT"),
                                     # MET filters (HBHE noise, CSC, etc.) are stored as trigger Bits in
                                     # MINIAOD produced in path "PAT"/"RECO" with prefix "Flag_"
@@ -2559,7 +2560,7 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
                                     doGenXCone_dijet=cms.bool(False),
                                     #store GEN constituents for GenXCone_dijet_sources: doGenJetConstituentsNjets and doGenJetConstituentsMinJetPt are combined with OR
                                     doGenxconeDijetJetConstituentsNjets=cms.uint32(0),#store constituents for N leading topjets, where N is parameter
-                                    doGenxconeDijetJetConstituentsMinJetPt=cms.double(-1),#store constituence for all topjets with pt above threshold, set to negative value if not 
+                                    doGenxconeDijetJetConstituentsMinJetPt=cms.double(-1),#store constituence for all topjets with pt above threshold, set to negative value if not
                                     GenXCone_dijet_sources=cms.VInputTag(
                                         cms.InputTag("genXCone2jets04"),
                                         cms.InputTag("genXCone3jets04"),

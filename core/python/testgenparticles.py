@@ -1,12 +1,13 @@
 import FWCore.ParameterSet.Config as cms
 process = cms.Process("TEST")
-process.source = cms.Source("PoolSource", 
+process.source = cms.Source("PoolSource",
   # a file from: /TprimeJetToTH_M800GeV_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM
   #fileNames = cms.untracked.vstring('file:/nfs/dust/cms/user/ottjoc/24D444CE-216A-E411-ADC5-001E67398633.root')
   #fileNames = cms.untracked.vstring('file:/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_TpTp_M1000_40x25_0_miniaod.root')
   #fileNames = cms.untracked.vstring('/store/mc/Phys14DR/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/00C90EFC-3074-E411-A845-002590DB9262.root')
   #fileNames = cms.untracked.vstring('/store/mc/Phys14DR/TprimeJetToTH_M800GeV_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/24D444CE-216A-E411-ADC5-001E67398633.root'),
-  fileNames = cms.untracked.vstring('/store/mc/Phys14DR/BprimeJetToTW_M800GeV_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/86D970BD-5E69-E411-BA40-002590AC4CC8.root'),
+  #fileNames = cms.untracked.vstring('/store/mc/Phys14DR/BprimeJetToTW_M800GeV_Tune4C_13TeV-madgraph-tauola/MINIAODSIM/PU20bx25_PHYS14_25_V1-v1/00000/86D970BD-5E69-E411-BA40-002590AC4CC8.root'),
+  fileNames = cms.untracked.vstring('file:///nfs/dust/cms/user/tiedemab/FastSimulation/FastSim/CMSSW_9_4_12/src/Output_ZPrimeTT_M1000_1/TTZprime_FastSim_1.root'), #testrun
   skipEvents = cms.untracked.uint32(0)
 )
 process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
@@ -17,7 +18,8 @@ process.prunedTmp = cms.EDProducer("GenParticlePruner",
     select = cms.vstring(
         'drop *',
         'keep status == 3',              # me in MadGraph
-        'keep 20 <= status <= 30',       # me in Pythia8
+        'keep 20 <= status <= 40',
+        #'keep 20 <= status <= 30',       # me in Pythia8 default
         'keep 11 <= abs(pdgId)  <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) >= 23 && abs(mother().pdgId()) <= 25',  # leptons from W,Z,H
         # in some cases, the intermediate W from the top quark decay is not stored; in this case,
         # the leptons can appear directly as daughters from the top. Keep those:
@@ -33,7 +35,7 @@ process.prunedPrunedGenParticles = cms.EDProducer("GenParticlePruner",
     select = cms.vstring(
         'keep *',
         # drop leptons from top ...
-        'drop 11 <= abs(pdgId) <= 16 && numberOfMothers() == 1 && abs(mother().pdgId())==6',  
+        'drop 11 <= abs(pdgId) <= 16 && numberOfMothers() == 1 && abs(mother().pdgId())==6',
         # ... but keep those where the W from the top decay is missing:
         'keep 11 <= abs(pdgId) <= 16 && numberOfMothers() == 1 && abs(mother().pdgId())==6 && mother().numberOfDaughters() > 2 && abs(mother().daughter(0).pdgId()) != 24 && abs(mother().daughter(1).pdgId()) != 24 && abs(mother().daughter(2).pdgId()) != 24',
     )
