@@ -308,11 +308,12 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
                                        select=cms.vstring(
                                            'drop *',
                                            'keep status == 3',
-                                           'keep 20 <= status <= 40',
-                                           #'keep 20 <= status <= 30', default values 
+                                           'keep 20 <= status <= 30',
+                                           'keep -30 <= status <= -20',
+                                           #'keep 20 <= status <= 30', default values
                                            'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) >= 23 && abs(mother().pdgId()) <= 25',
                                            'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) == 6',
-                                           'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) == 42',
+                                           'keep 11 <= abs(pdgId) <= 16 && numberOfMothers()==1 && abs(mother().pdgId()) == 9000005',
                                            'drop 11 <= abs(pdgId) <= 16 && numberOfMothers() == 1 && abs(mother().pdgId())==6',
                                            'keep 11 <= abs(pdgId) <= 16 && numberOfMothers() == 1 && abs(mother().pdgId())==6 ' \
                                            '&& mother().numberOfDaughters() > 2 && abs(mother().daughter(0).pdgId()) != 24 ' \
