@@ -13,7 +13,7 @@ process = generate_process(year="2017v2", useData=False)
 
 # Please do not commit changes to source filenames - used for consistency testing
 process.source.fileNames = cms.untracked.vstring([
-    '/store/mc/RunIIFall17MiniAODv2/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/30000/D221F074-FF58-E811-958D-509A4C78138B.root'
+    'file:///nfs/dust/cms/user/tiedemab/FastSimulation/FastSim/CMSSW_9_4_12/src/Output_ZPrimeTT_M1000_1/TTZprime_FastSim_1.root'
 ])
 
 # Do this after setting process.source.fileNames, since we want the ability to override it on the commandline
