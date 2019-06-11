@@ -63,7 +63,7 @@ def get_request_name(dataset_name):
     return modified_name
 
 
-inputDatasets = ['/DYJetsToLL_M-50_HT-*to*_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_*/MINIAODSIM']
+inputDatasets = ['/nfs/dust/cms/user/tiedemab/FastSimulation/FastSim/CMSSW_9_4_12/src/Output_ZPrimeTT_M1000_*/TTZprime_FastSim_*.root']
 inputDatasets = autocomplete_Datasets(inputDatasets)
 requestNames = [get_request_name(x) for x in inputDatasets]
 
@@ -83,7 +83,7 @@ config.General.transferOutputs = True
 config.General.transferLogs = True
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = os.path.join(os.environ['CMSSW_BASE'], 'src/UHH2/core/python/ntuplewriter_mc_2018.py')
+config.JobType.psetName = os.path.join(os.environ['CMSSW_BASE'], 'src/UHH2/core/python/ntuplewriter_mc_2017v2.py')
 config.JobType.outputFiles = ["Ntuple.root"]
 config.JobType.maxMemoryMB = 2500
 
@@ -112,6 +112,5 @@ config.Site.storageSite = 'T2_DE_DESY'
 
 if len(inputDatasets) > 0 and len(requestNames) > 0:
     config.General.requestName = requestNames[0]
-    config.Data.inputDataset = inputDatasets[0]
-
+    config.Data.inputDataset = inputDatasets[-1]
 
